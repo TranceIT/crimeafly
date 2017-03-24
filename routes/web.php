@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('index');
 });
+Route::get('/', function () {
+    return view('index');
+});
+
+Route::get('/i-want-to-crimea/', 'IndexController@iWantToCrimea');
+
+Route::get('/get-to-simferopol/', 'IndexController@getToSimferopol');

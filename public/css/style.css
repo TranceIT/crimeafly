@@ -1,0 +1,76 @@
+html, body {
+	padding: 0;
+	margin: 0;
+	width: 100%;
+}
+
+#ak-app-7c578f4834a92 {
+	width: 1000px;
+	margin: 0 auto;
+}
+
+.top {
+	height: 100px;
+	width: 100%;
+	display: block;
+	clear: both;
+}
+
+.search-block {
+	height: 400px;
+	width: 100%;
+	display: block;
+	clear: both;
+	background-image: url('/img/searchform-bg.jpg');
+	background-repeat: no-repeat;
+	background-position: right top;
+	background-size: cover;
+}
+
+.search-form {
+	padding-top: 100px;
+}
+
+.main-wrapper {
+	width: 1000px;
+	display: block;
+	position: relative;
+	clear: both;
+	margin: 0 auto;
+}
+
+.top-container {
+	padding-top: 25px;
+}
+
+.name {
+	font-family: 'Abel', sans-serif;
+	font-size: 45px;
+	line-height: 20px;
+}
+
+.blue {
+	color: #43b3ff;
+}
+
+.darkblue {
+	color: #2a93dc;
+}
+
+.top-menu {
+	float: right;
+}
+
+.top-menu ul {
+	list-style: none;
+}
+
+.top-menu ul li {
+	float: left;
+	margin-right: 20px;
+}
+
+.top-menu ul li a {
+	text-decoration: none;
+	color: #000;
+}

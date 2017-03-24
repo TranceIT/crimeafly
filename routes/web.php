@@ -11,12 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', 'IndexController@index');
 
 Route::get('/i-want-to-crimea/', 'IndexController@iWantToCrimea');
 

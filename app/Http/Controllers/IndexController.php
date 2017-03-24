@@ -7,17 +7,21 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-use App\Location\Location;
+use App\GEOIP\GEOIP;
 
 class IndexController extends BaseController
 {
 
 	public function index()
 	{
-		$location = new Location($_SERVER['REMOTE_ADDR']);
-		echo $location->test();
+		if (app('env') == 'local') {
+			$GEOIP = new GEOIP('185.16.31.221');
+		} else {
+			$GEOIP = new GEOIP($_SERVER['REMOTE_ADDR']);	
+		}
+		$location = $GEOIP->getLocation();
+		var_dump($location); die;
 
-		die;
 	}
 
     public function iWantToCrimea()

@@ -4,73 +4,79 @@ namespace App\GEOIP;
 
 use Illuminate\Support\Facades\Redis;
 
+use App\Helpers\Http;
+
 /**
  * Detect user location by IP address
  */
 class GEOIP {
 
-	/**
-	 * User IP
-	 * @param str
-	 */
-	protected $IP;
+    /**
+     * Default redis key
+     * @param str
+     */
+    private $redisKey = 'GEOIP:';
 
-	/**
-	 * User country code
-	 * @param str
-	 */
-	protected $countryCode;
+    /**
+     * User IP
+     * @param str
+     */
+    protected $IP;
 
-	/**
-	 * User IATA code
-	 * @param str
-	 */
-	protected $IATA;
+    /**
+     * User country code
+     * @param str
+     */
+    protected $countryCode;
 
-	/**
-	 * User country name
-	 * @param str
-	 */
-	protected $country;
+    /**
+     * User IATA code
+     * @param str
+     */
+    protected $IATA;
 
-	/**
-	 * User city name
-	 * @param str
-	 */
-	protected $city;
+    /**
+     * User country name
+     * @param str
+     */
+    protected $country;
 
-	public function __construct($IP)
-	{
-		$this->IP = $IP;
-	}
+    /**
+     * User city name
+     * @param str
+     */
+    protected $city;
 
-	/**
-	 * Get user location by GEOIP
-	 * @return obj
-	 */
-	public function getLocation()
-	{	
-		$location = $this->checkRedis();
-		return $location;
-	}
+    public function __construct($IP)
+    {
+        $this->IP = $IP;
+    }
 
-	/**
-	 * Check redis for user location
-	 * @return boolean
-	 */
-	private function checkRedis()
-	{
-		if ($location = Redis::get('GEOIP:' . $this->IP)) {
-			$this->countryCode = $location['countryCode'];
-			$this->IATA        = $location['IATA'];
-			$this->country     = $location['country'];
-			$this->city        = $location['city'];
-			
-			return true;
-		}
+    /**
+     * Get user location by GEOIP
+     * @return obj
+     */
+    public function getLocation()
+    {
+        if ($location = Redis::get($this->redisKey . $this->IP)) {
+            $location = unserialize($location);
 
-		return false;
-	}
+            $this->countryCode = $location->countryCode;
+            $this->IATA        = $location->IATA;
+            $this->country     = $location->country;
+            $this->city        = $location->city;
+        } else {
+            $response = Http::get('http://api.sypexgeo.net', '/json/' . $this->IP);
+            $response = json_decode($response['response']);
 
+            $this->countryCode = $response->country->iso;
+            $this->IATA        = 'ASD';
+            $this->country     = $response->country->name_en;
+            $this->city        = $response->city->name_en;
 
+            Redis::set($this->redisKey . $this->IP, serialize($this));
+        }
+
+        return $location;
+    }
 }

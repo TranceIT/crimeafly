@@ -18,7 +18,6 @@
         <div class="top">
             <div class="main-wrapper wrapper-top">
                 <div class="top-container">
-                    <img src="./img/crimeafly-logo.png">
                     <span class="name blue">Crimea</span><span class="name darkblue">Sky</span>
                     <div class="top-menu">
                         <ul>

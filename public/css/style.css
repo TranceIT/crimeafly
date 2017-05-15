@@ -43,17 +43,18 @@ html, body {
 	padding-top: 25px;
 }
 
-.name {
+.top-container .name {
 	font-family: 'Abel', sans-serif;
 	font-size: 45px;
-	line-height: 20px;
+	line-height: 50px;
 }
 
-.blue {
+.top-container .blue {
 	color: #43b3ff;
+	margin-left: 25px;
 }
 
-.darkblue {
+.top-container .darkblue {
 	color: #2a93dc;
 }
 
